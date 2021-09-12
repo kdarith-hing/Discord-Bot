@@ -31,6 +31,10 @@ async def on_raw_reaction_add(payload):
 
             if payload.emoji.name == '💜':
                 role = discord.utils.get(guild.roles, name='they•them')
+            elif payload.emoji.name == '💚':
+                role = discord.utils.get(guild.roles, name='she•her')
+            elif payload.emoji.name == '🤍':
+                role = discord.utils.get(guild.roles, name='he•him')
             else:
                 role = None
 
@@ -45,16 +49,18 @@ async def on_raw_reaction_remove(payload):
         guild = await(client.fetch_guild(payload.guild_id))
         member = await(guild.fetch_member(payload.user_id))
 
-        print(f'This is the ADDED emoji name: {payload.emoji.name}')
-
         if payload.emoji.name == '💜':
             role = discord.utils.get(guild.roles, name='they•them')
+        elif payload.emoji.name == '💚':
+            role = discord.utils.get(guild.roles, name='she•her')
+        elif payload.emoji.name == '🤍':
+            role = discord.utils.get(guild.roles, name='he•him')
         else:
             role = None
 
         if role is not None and member is not None:
             await member.remove_roles(role)
-            print(f'Removed \'{member.name}\' the role \'{role}\'')
+            print(f'Removed role \'{role}\' from \'{member.name}\'')
 
 @client.event
 async def on_error(event, *args, **kwargs):
